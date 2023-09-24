@@ -1,4 +1,4 @@
-// Rust don't care about the order of function definitions 
+// Rust don't care about the order of function definitions
 fn fn_order_does_not_matter() {
     println!("Hello, world!");
 }
@@ -42,11 +42,11 @@ fn expression() {
 }
 
 /**
- * In TypeScript:
+ *  In TypeScript:
  *
- * function five(): number {
- *  return 5
- * }
+ *  function five(): number {
+ *      return 5
+ *  }
  */
 // -> after function () is a return type declaration
 // can return early with `return`, but the last expression is the return value by default
