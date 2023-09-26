@@ -21,8 +21,20 @@ fn main() {
 
     let mut input_temperature = String::new();
 
-    let source = if target == "f" { "Celcius" } else if target == "c" { "Farenheit" } else { "Undefined" };
-    target = if target == "f" { "Farenheit" } else if target == "c" { "Celcius" } else { "Undefined" };
+    let source = if target == "f" {
+        "Celcius"
+    } else if target == "c" {
+        "Farenheit"
+    } else {
+        "Undefined"
+    };
+    target = if target == "f" {
+        "Farenheit"
+    } else if target == "c" {
+        "Celcius"
+    } else {
+        "Undefined"
+    };
 
     if target == "Undefined" || source == "Undefined" {
         println!("Something went wrong. Please try again.");
@@ -36,13 +48,17 @@ fn main() {
 
     let input_temperature = input_temperature.trim().parse::<f64>().unwrap();
 
-    let converted_temperature: f64 = if target == "Farenheit" { convert_celcius_to_farenheit(input_temperature) } else { convert_farenheit_to_celcius(input_temperature) };
+    let converted_temperature: f64 = if target == "Farenheit" {
+        convert_celcius_to_farenheit(input_temperature)
+    } else {
+        convert_farenheit_to_celcius(input_temperature)
+    };
 
     println!("Converted {target} {input_temperature} to {source} {converted_temperature}");
 }
 
 fn convert_celcius_to_farenheit(celcius: f64) -> f64 {
-    (celcius * 9.0/5.0) + 32.0
+    (celcius * 9.0 / 5.0) + 32.0
 }
 
 fn convert_farenheit_to_celcius(farenheit: f64) -> f64 {
