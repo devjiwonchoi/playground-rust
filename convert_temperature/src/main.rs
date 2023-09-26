@@ -1,4 +1,5 @@
 use std::io::stdin;
+use std::process;
 
 fn main() {
     println!("To which temperature do you want to convert to?");
@@ -8,47 +9,50 @@ fn main() {
     stdin()
         .read_line(&mut target)
         .expect("Something went wrong. Please try again.");
-    target = target.trim().to_owned();
+    // Type is str
+    let mut target = target.trim();
 
     // Leave this since it was a good research
-    if !vec!["f", "c"].contains(&target.as_str()) {
-        println!("You typed {target}.");
-        println!("Please enter a valid temperature input, `c` or `f`.")
+    if !vec!["f", "c"].contains(&target) {
+        println!("You typed `{target}`.");
+        println!("Please enter a valid temperature input, `c` or `f`.");
+        process::exit(1)
     }
 
+    let mut input_temperature = String::new();
     let mut temperature: f64 = 0.0;
     let mut converted_temperature: f64 = 0.0;
-    let mut convert_target = "Undefined".to_string();
+    let mut convert_target = "Undefined";
 
-    if target == "f".to_string() {
+    if target == "f" {
         println!("Enter the temperature to be converted to Farenheit.");
-        let mut celcius = String::new();
         stdin()
-            .read_line(&mut celcius)
+            .read_line(&mut input_temperature)
             .expect("Something went wrong. Please try again.");
 
-        let celcius: f64 = celcius.trim().parse::<f64>().unwrap();
+        let celcius: f64 = input_temperature.trim().parse::<f64>().unwrap();
 
         temperature = celcius;
         converted_temperature = convert_celcius_to_farenheit(celcius);
-        target = "Celcius".to_string();
-        convert_target = "Farenheit".to_string();
+        target = "Celcius";
+        convert_target = "Farenheit";
     }
 
-    if target == "c".to_string() {
+    if target == "c" {
         println!("Enter the temperature to be converted to Celcius.");
-        let mut farenheit = String::new();
         stdin()
-            .read_line(&mut farenheit)
+            .read_line(&mut input_temperature)
             .expect("Something went wrong. Please try again.");
 
-        let farenheit: f64 = farenheit.trim().parse::<f64>().unwrap();
+        let farenheit: f64 = input_temperature.trim().parse::<f64>().unwrap();
 
         temperature = farenheit;
         converted_temperature = convert_farenheit_to_celcius(farenheit);
-        target = "Farenheit".to_string();
-        convert_target = "Celcius".to_string();
+        target = "Farenheit";
+        convert_target = "Celcius";
     }
+
+    let convert_target = convert_target.to_string();
 
     println!("Converted {target} {temperature} to {convert_target} {converted_temperature}");
 }
