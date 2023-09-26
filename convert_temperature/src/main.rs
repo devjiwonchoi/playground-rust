@@ -8,7 +8,7 @@ fn main() {
     stdin()
         .read_line(&mut target)
         .expect("Something went wrong. Please try again.");
-    let target = target.trim().to_owned();
+    target = target.trim().to_owned();
 
     // Leave this since it was a good research
     if !vec!["f", "c"].contains(&target.as_str()) {
@@ -18,6 +18,7 @@ fn main() {
 
     let mut temperature: f64 = 0.0;
     let mut converted_temperature: f64 = 0.0;
+    let mut convert_target = "Undefined".to_string();
 
     if target == "f".to_string() {
         println!("Enter the temperature to be converted to Farenheit.");
@@ -30,6 +31,8 @@ fn main() {
 
         temperature = celcius;
         converted_temperature = convert_celcius_to_farenheit(celcius);
+        target = "Celcius".to_string();
+        convert_target = "Farenheit".to_string();
     }
 
     if target == "c".to_string() {
@@ -43,10 +46,10 @@ fn main() {
 
         temperature = farenheit;
         converted_temperature = convert_farenheit_to_celcius(farenheit);
+        target = "Farenheit".to_string();
+        convert_target = "Celcius".to_string();
     }
 
-    let target = if target == "c".to_string() { "Farenheit" } else if target == "f".to_string() { "Celcius" } else { "Undefined" };
-    let convert_target = if target == "Farenheit".to_string() { "Celcius" } else if target == "Celcius".to_string() { "Farenheit" } else { "Undefined" };
     println!("Converted {target} {temperature} to {convert_target} {converted_temperature}");
 }
 
