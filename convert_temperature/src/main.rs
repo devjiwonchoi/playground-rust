@@ -16,45 +16,29 @@ fn main() {
     if !vec!["f", "c"].contains(&target) {
         println!("You typed `{target}`.");
         println!("Please enter a valid temperature input, `c` or `f`.");
-        process::exit(1)
+        process::exit(1);
     }
 
     let mut input_temperature = String::new();
-    let mut temperature: f64 = 0.0;
-    let mut converted_temperature: f64 = 0.0;
-    let mut convert_target = "Undefined";
 
-    if target == "f" {
-        println!("Enter the temperature to be converted to Farenheit.");
-        stdin()
-            .read_line(&mut input_temperature)
-            .expect("Something went wrong. Please try again.");
+    let source = if target == "f" { "Celcius" } else if target == "c" { "Farenheit" } else { "Undefined" };
+    target = if target == "f" { "Farenheit" } else if target == "c" { "Celcius" } else { "Undefined" };
 
-        let celcius: f64 = input_temperature.trim().parse::<f64>().unwrap();
-
-        temperature = celcius;
-        converted_temperature = convert_celcius_to_farenheit(celcius);
-        target = "Celcius";
-        convert_target = "Farenheit";
+    if target == "Undefined" || source == "Undefined" {
+        println!("Something went wrong. Please try again.");
+        process::exit(1);
     }
 
-    if target == "c" {
-        println!("Enter the temperature to be converted to Celcius.");
-        stdin()
-            .read_line(&mut input_temperature)
-            .expect("Something went wrong. Please try again.");
+    println!("Enter the temperature to be converted to {target}.");
+    stdin()
+        .read_line(&mut input_temperature)
+        .expect("Something went wrong. Please try again.");
 
-        let farenheit: f64 = input_temperature.trim().parse::<f64>().unwrap();
+    let input_temperature = input_temperature.trim().parse::<f64>().unwrap();
 
-        temperature = farenheit;
-        converted_temperature = convert_farenheit_to_celcius(farenheit);
-        target = "Farenheit";
-        convert_target = "Celcius";
-    }
+    let converted_temperature: f64 = if target == "Farenheit" { convert_celcius_to_farenheit(input_temperature) } else { convert_farenheit_to_celcius(input_temperature) };
 
-    let convert_target = convert_target.to_string();
-
-    println!("Converted {target} {temperature} to {convert_target} {converted_temperature}");
+    println!("Converted {target} {input_temperature} to {source} {converted_temperature}");
 }
 
 fn convert_celcius_to_farenheit(celcius: f64) -> f64 {
