@@ -17,7 +17,7 @@ fn main() {
             } else {
                 num
             }
-        },
+        }
         Err(err) => {
             eprintln!("Error: {err}. Please enter a natural number.");
             process::exit(1)
